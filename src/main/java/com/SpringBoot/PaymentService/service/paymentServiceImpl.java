@@ -19,7 +19,7 @@ public class paymentServiceImpl implements paymentService{
     private transactionDetailsRepository transactionDetailsRepository;
 
     @Override
-    public paymentResponse getPaymentDetailsbyOrderId(Long orderId) {
+    public paymentResponse getPaymentDetailsbyOrderId(String orderId) {
         log.info("getting payment details for the order ID: {}");
         transactionDetails Transactiondetails = transactionDetailsRepository.findByOrderId(Long.valueOf(orderId));
 
@@ -28,7 +28,7 @@ public class paymentServiceImpl implements paymentService{
                 .orderId(Transactiondetails.getOrderId())
                 .PaymentType(paymentType.valueOf(Transactiondetails.getPaymentType()))
                 .paymentDate(Transactiondetails.getPaymentDate())
-                .status(Transactiondetails.getPaymentStatus())
+                .paymentStatus(Transactiondetails.getPaymentStatus())
                 .amount(Transactiondetails.getAmount())
                 .build();
 
@@ -36,16 +36,16 @@ public class paymentServiceImpl implements paymentService{
     }
 
     @Override
-    public long doPayment(paymentRequest paymentRequest) {
-        log.info("Recording payment details: {} ", paymentRequest);
+    public long doPayment(paymentRequest PaymentRequest) {
+        log.info("Recording payment details: {} ", PaymentRequest);
 
         transactionDetails TransactionDetails = transactionDetails.builder()
                 .paymentDate(Instant.now())
-                .paymentType(paymentRequest.getPaymentType().name())
+                .paymentType(PaymentRequest.getPaymentType().name())
                 .paymentStatus("SUCCESS")
-                .orderId(paymentRequest.getOrderId())
-                .referenceNumber(paymentRequest.getReferenceNumber())
-                .amount(paymentRequest.getAmount())
+                .orderId(PaymentRequest.getOrderId())
+                .referenceNumber(PaymentRequest.getReferenceNumber())
+                .amount(PaymentRequest.getAmount())
                 .build();
         transactionDetailsRepository.save(TransactionDetails);
         log.info("Transaction completed with ID{} " , TransactionDetails.getId());

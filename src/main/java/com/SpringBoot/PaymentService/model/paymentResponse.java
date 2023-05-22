@@ -15,7 +15,7 @@ import java.time.Instant;
 public class paymentResponse {
 
     private long paymentId;
-    private String status;
+    private String paymentStatus;
     private paymentType PaymentType;
     private long amount;
     private Instant paymentDate;

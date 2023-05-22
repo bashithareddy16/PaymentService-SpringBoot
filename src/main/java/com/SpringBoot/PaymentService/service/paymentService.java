@@ -4,6 +4,6 @@ import com.SpringBoot.PaymentService.model.paymentRequest;
 import com.SpringBoot.PaymentService.model.paymentResponse;
 
 public interface paymentService {
-    paymentResponse getPaymentDetailsbyOrderId(Long orderId);
+    paymentResponse getPaymentDetailsbyOrderId(String orderId);
     long doPayment(paymentRequest paymentRequest);
 }
